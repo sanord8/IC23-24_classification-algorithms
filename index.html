@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Algorithms</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Google Icons  -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- Underscore lib -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+
+    <!-- Google lib -->
+    <script type='text/javascript' src='https://www.google.com/jsapi?autoload={"modules":[{"name":"visualization","version":"1","packages":["orgchart"]}]}'></script>
+    <!-- Styles  -->
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+</head>
+
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <span class="material-symbols-outlined">category</span>
+                Classlification Algorithms
+            </span>
+        </div>
+    </nav>
+
+    <div class="container-fluid ps-1 mt-2">
+        <div class="row row-cols-1 row-cols-md-2 mx-2 mt-4">
+            <!-- Opciones -->
+            <div class="col col-md-4 col-lg-3">
+                <div class="row">
+                    <div>
+                        <h4>Iris-Versicolor</h4>
+                        <table id="versicolorTable" class="table table-striped overflow-y-scroll">
+                        </table>
+                    </div>
+                    <div>
+                        <h4>Iris-Setosa</h4>
+                        <table id="setosaTable" class="table table-striped overflow-y-scroll">
+                        </table>
+                    </div>
+                </div>
+                <form id="testCaseForm" class="row">
+                    <label for="dropdown" class="form-label">Test Case:</label>
+                    <select class="form-select" id="dropdown">
+                        <option value="1">Iris01</option>
+                        <option value="2">Iris02</option>
+                        <option value="3">Iris03</option>
+                    </select>
+                </form>
+                <form id="startSimulationForm">
+                    <div class="row g-3">
+                        <div class="mb-3 ps-0">
+                            <label for="dropdown" class="form-label">Algorithm:</label>
+                            <select class="form-select" id="dropdown">
+                                <option value="option1">K-means clustering</option>
+                                <option value="option2">Bayes algorithm</option>
+                                <option value="option3">Lloyd's algorithm</option>
+                                <option value="option4">Self Organizing Map (SOM)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Start</button>
+                    </div>
+                </form>
+                
+                <!-- Samples -->
+                <div id="samples" class="text-center mt-3 fs-4 fw-bold">
+
+                </div>
+            </div>
+            <!-- Tablero -->
+            <div class="col col-md-8 col-lg-9">
+                <div id="displayTree" class="tree mx-auto ps-3 pb-2">
+                    <div id='canvas'></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8 align-self-end" id="dataDisplay">
+                
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <!-- JQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!-- Web logic -->
+        <script src="./main.js"></script>
+    </footer>
+</body>
+
+</html>

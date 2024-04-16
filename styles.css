@@ -1,0 +1,8 @@
+#message {
+    color: #f00;
+    font-size: 1.2em;
+}
+
+table {
+	max-height: 25vh !important;
+}
