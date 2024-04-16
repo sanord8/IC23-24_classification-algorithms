@@ -1,13 +1,28 @@
+"use strict";
+
 /**
  * Self-Organizing Map (SOM) class.
  */
 class SOM {
-    /**
-     * Creates a new SOM instance.
+
+    
+   /**
      * @param {number} inputSize - The number of features in each data point.
      * @param {number} mapSize - The size of the SOM grid.
-     */
-    constructor(inputSize, mapSize) {
+     * @param {number} tolerance - The tolerance value for convergence.
+     * @param {number} maxIterations - The maximum number of iterations.
+     * @param {number} learningRate - The learning rate.
+    */
+    constructor() {
+        const inputSize = 4;
+        const mapSize = 10; 
+        const tolerance = Math.pow(10, -6); 
+        const maxIterations = 1000; 
+        const learningRate = 0.1; 
+
+        this.tolerance = tolerance;
+        this.maxIterations = maxIterations;
+        this.learningRate = learningRate;
         this.inputSize = inputSize;
         this.mapSize = mapSize;
         this.weights = this.initializeWeights();
@@ -36,7 +51,8 @@ class SOM {
      * @param {number[][]} data - The training data.
      * @param {number} epochs - The number of training epochs.
      */
-    train(data, epochs) {
+    train(data) {
+        let epochs = this.maxIterations;
         for (let epoch = 0; epoch < epochs; epoch++) {
             for (let i = 0; i < data.length; i++) {
                 const input = data[i].slice(0, this.inputSize);
@@ -100,17 +116,15 @@ class SOM {
             }
         }
     }
+
+    /**
+     * Predicts the output for the given input.
+     * @param {number[]} input - The input data.
+     * @returns {number[]} - The predicted output.
+     */
+    predict(input) {
+        const winner = this.findWinner(input);
+        return this.weights[winner[0]][winner[1]];
+    }
 }
 
-// Example usage
-const data = [
-    [5.0, 3.3, 1.4, 0.2, 'Iris-setosa'],
-    // Add more data points here
-];
-
-const inputSize = 4; // Number of features in each data point
-const mapSize = 10; // Size of the SOM grid
-const epochs = 100; // Number of training epochs
-
-const som = new SOM(inputSize, mapSize);
-som.train(data, epochs);

@@ -30,48 +30,43 @@
     </nav>
 
     <div class="container-fluid ps-1 mt-2">
-        <div class="row row-cols-1 row-cols-md-2 mx-2 mt-4">
+        <div class="row row-cols-1 row-cols-md-2 mx-2">
             <!-- Opciones -->
             <div class="col col-md-4 col-lg-3">
                 <div class="row">
-                    <div>
-                        <h4>Iris-Versicolor</h4>
-                        <table id="versicolorTable" class="table table-striped overflow-y-scroll">
+                    <h4>Iris-Versicolor</h4>
+                    <div class="table-wrap">
+                        <table class="table table-striped">
+                            <tbody id="versicolorTable">
+
+                            </tbody>
                         </table>
                     </div>
-                    <div>
-                        <h4>Iris-Setosa</h4>
-                        <table id="setosaTable" class="table table-striped overflow-y-scroll">
+                    <h4 class="mt-3">Iris-Setosa</h4>
+                    <div class="table-wrap">
+                        <table class="table table-striped">
+                            <tbody id="setosaTable">
+                                
+                            </tbody>
                         </table>
                     </div>
                 </div>
                 <form id="testCaseForm" class="row">
-                    <label for="dropdown" class="form-label">Test Case:</label>
+                    <label for="dropdown" class="form-label mt-2">Test Case:</label>
                     <select class="form-select" id="dropdown">
                         <option value="1">Iris01</option>
                         <option value="2">Iris02</option>
                         <option value="3">Iris03</option>
                     </select>
+                    <label for="dropdown" class="form-label mt-2">Algorithm:</label>
+                    <select class="form-select" id="dropdown">
+                        <option value="option1">K-means clustering</option>
+                        <option value="option2">Bayes algorithm</option>
+                        <option value="option3">Lloyd's algorithm</option>
+                        <option value="option4">Self Organizing Map (SOM)</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-3">Start</button>
                 </form>
-                <form id="startSimulationForm">
-                    <div class="row g-3">
-                        <div class="mb-3 ps-0">
-                            <label for="dropdown" class="form-label">Algorithm:</label>
-                            <select class="form-select" id="dropdown">
-                                <option value="option1">K-means clustering</option>
-                                <option value="option2">Bayes algorithm</option>
-                                <option value="option3">Lloyd's algorithm</option>
-                                <option value="option4">Self Organizing Map (SOM)</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Start</button>
-                    </div>
-                </form>
-                
-                <!-- Samples -->
-                <div id="samples" class="text-center mt-3 fs-4 fw-bold">
-
-                </div>
             </div>
             <!-- Tablero -->
             <div class="col col-md-8 col-lg-9">
@@ -92,6 +87,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        
+        <!-- Algorithms -->
+        <script src="./js/bayes.js"></script>
+        <script src="./js/k-means.js"></script>
+        <script src="./js/lloyd.js"></script>
+        <script src="./js/som.js"></script>
+
         <!-- Web logic -->
         <script src="./main.js"></script>
     </footer>

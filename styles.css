@@ -3,6 +3,7 @@
     font-size: 1.2em;
 }
 
-table {
-	max-height: 25vh !important;
-}
+.table-wrap {
+    height: 25vh;
+    overflow-y: auto;
+  }
