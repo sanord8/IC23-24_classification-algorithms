@@ -1,6 +1,7 @@
 "use strict";
 
-import Utilities from "./utils";
+import Utilities from "./utils.js";
+import dataSets from "../docs/data.js";
 
 export default class KMeans {
     static dist(x, v) {
@@ -26,10 +27,13 @@ export default class KMeans {
         return numValue.map(val => val / denValue);
     }
 
-    static execute(versicolorData, setosaData) {
-        const data = versicolorData.concat(setosaData);
+    static execute() {
+        const data = dataSets.versicolor.concat(dataSets.setosa);
+        console.log(data);
+
         const n = data.length;
         const c = 2;
+
         const old = [];
         const newCenters = [];
 
