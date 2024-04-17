@@ -28,8 +28,7 @@ export default class KMeans {
     }
 
     static execute() {
-        const data = dataSets.versicolor.concat(dataSets.setosa);
-        console.log(data);
+        const data = dataSets.versicolor.concat(dataSets.setosa).map(row => row.slice(0, -1));
 
         const n = data.length;
         const c = 2;
