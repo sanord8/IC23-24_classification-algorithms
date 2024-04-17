@@ -1,5 +1,7 @@
 "use strict";
 
+import KMeans from "./JS/K-means";
+
 (async function init() {
     const versicolorData = [];
     const setosaData = [];
@@ -7,7 +9,7 @@
     await createTableFromTextFile(versicolorData, setosaData);
     
     // Call the kMeans function to perform clustering
-    const finalCentroids = kMeans(versicolorData, setosaData);
+    const finalCentroids = KMeans.execute(versicolorData, setosaData);
     console.log("Final Centroids:", finalCentroids);
 
     // SOM

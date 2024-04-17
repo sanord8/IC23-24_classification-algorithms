@@ -1,118 +1,102 @@
 "use strict";
 
-const c = 2; // num classes
-const n = 50; // num data
+import Utilities from "./utils";
 
-const e = Math.pow(1, -2);  // tolerance
-const b = 2;    // exponential weight
-
-function kMeans(versicolorData, setosaData) {
-    console.log("kmeans");
-    console.log(versicolorData);
-    console.log(setosaData);
-
-    // Check if input data is valid
-    if (!versicolorData) {
-        throw new Error("Invalid input data");
+export default class KMeans {
+    static dist(x, v) {
+        return Math.sqrt(x.map((xi, i) => Math.pow(xi - v[i], 2)).reduce((sum, val) => sum + val, 0));
     }
 
-    if(!setosaData)
-        throw new Error("Invalid input data 2");
-
-    if(versicolorData.length !== n)
-        throw new Error(versicolorData.length);
-
-    if(setosaData.length !== n)
-        throw new Error("Invalid input data 4");
-
-    // Remove class label from each element in versicolorData and setosaData
-    const versicolorFeatures = versicolorData.map(row => row.slice(0, -1));
-    const setosaFeatures = setosaData.map(row => row.slice(0, -1));
-
-    // Combine the two datasets
-    const data = versicolorFeatures.concat(setosaFeatures);
-    const numFeatures = data[0].length;
-
-    // Step 1: Initialize centroids randomly
-    let centroids = [];
-    for (let i = 0; i < c; i++) {
-        let centroid = [];
-        for (let j = 0; j < numFeatures; j++) {
-            centroid.push(Math.random()); // Initialize with random values
-        }
-        centroids.push(centroid);
-    }
-
-    let iteration = 0;
-    let prevCentroids = null;
-
-    // Steps 2 and 3: Assign data points to nearest centroids and update centroids until convergence
-    while (iteration === 0 || !hasConverged(centroids, prevCentroids)) {
-        prevCentroids = [...centroids]; // Save centroids for convergence check
-
-        // Step 2: Assign each data point to the nearest centroid
-        let assignments = new Array(data.length);
-        for (let i = 0; i < data.length; i++) {
-            let minDistance = Number.MAX_VALUE;
-            let closestCentroid = null;
-            for (let j = 0; j < centroids.length; j++) {
-                let distance = euclideanDistance(data[i], centroids[j]);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestCentroid = j;
-                }
-            }
-            assignments[i] = closestCentroid;
-        }
-
-        // Step 3: Update centroids based on the mean of the points assigned to them
-        for (let i = 0; i < centroids.length; i++) {
-            let points = [];
-            for (let j = 0; j < assignments.length; j++) {
-                if (assignments[j] === i) {
-                    points.push(data[j]);
-                }
-            }
-            if (points.length > 0) {
-                centroids[i] = calculateMean(points);
-            }
-        }
-
-        iteration++;
-    }
-
-    return centroids;
-}
-
-// Function to calculate Euclidean distance between two points
-function euclideanDistance(point1, point2) {
-    let sum = 0;
-    for (let i = 0; i < point1.length; i++) {
-        sum += Math.pow(point1[i] - point2[i], 2);
-    }
-    return Math.sqrt(sum);
-}
-
-// Function to check convergence
-function hasConverged(centroids, prevCentroids) {
-    if (prevCentroids === null) return false;
-    for (let i = 0; i < centroids.length; i++) {
-        for (let j = 0; j < centroids[i].length; j++) {
-            if (Math.abs(centroids[i][j] - prevCentroids[i][j]) > e) {
+    static checkTolerance(old, newCenters) {
+        for (let i = 0; i < old.length; i++) {
+            if (KMeans.dist(newCenters[i], old[i]) >= Utilities.KMEANS_EPS) {
                 return false;
             }
         }
+        return true;
     }
-    return true;
-}
 
-// Function to calculate mean of a list of points
-function calculateMean(points) {
-    let mean = new Array(points[0].length).fill(0);
-    for (let i = 0; i < points.length; i++) {
-        for (let j = 0; j < points[i].length; j++) {
-            mean[j] += points[i][j];
+    static updateCentroid(i, u, x) {
+        let numValue = new Array(x[0].length).fill(0);
+        let denValue = 0;
+        for (let j = 0; j < x.length; j++) {
+            numValue = numValue.map((val, idx) => val + Math.pow(u[i][j], Utilities.KMEANS_B) * x[j][idx]);
+            denValue += Math.pow(u[i][j], Utilities.KMEANS_B);
         }
+        return numValue.map(val => val / denValue);
     }
-    return mean.map(val => val / points.length);
+
+    static execute(versicolorData, setosaData) {
+        const data = versicolorData.concat(setosaData);
+        const n = data.length;
+        const c = 2;
+        const old = [];
+        const newCenters = [];
+
+        for (let i = 0; i < c; i++) {
+            const v = Utilities.INI_CENTROIDS[i];
+            old.push(v.map(val => val));
+        }
+
+        let numIter = 1;
+        while (true) {
+            const u = [];
+            const acc = new Array(n).fill(0);
+            for (let i = 0; i < c - 1; i++) {
+                u[i] = [];
+                for (let j = 0; j < n; j++) {
+                    let numValue = Math.pow(1 / Math.pow(KMeans.dist(data[j], old[i]), 2), 1 / (Utilities.KMEANS_B - 1));
+                    let denValue = 0;
+                    for (let r = 0; r < c; r++) {
+                        denValue += Math.pow(1 / Math.pow(KMeans.dist(data[j], old[r]), 2), 1 / (Utilities.KMEANS_B - 1));
+                    }
+                    u[i][j] = numValue / denValue;
+                    acc[j] += u[i][j];
+                }
+            }
+            u[c - 1] = acc.map(val => 1 - val);
+            for (let i = 0; i < c; i++) {
+                newCenters[i] = KMeans.updateCentroid(i, u, data);
+            }
+            if (KMeans.checkTolerance(old, newCenters)) {
+                break;
+            } else {
+                old.forEach((val, idx) => val.forEach((v, i) => val[i] = newCenters[idx][i]));
+                numIter++;
+            }
+        }
+        return [newCenters, numIter];
+    }
+
+    static classify(centroids, example) {
+        let data = [];
+        let sol = -1;
+        let minDist = Number.POSITIVE_INFINITY;
+        let maxDegree = 0;
+        for (let i = 0; i < centroids.length; i++) {
+            let dist = KMeans.dist(example, centroids[i]) ** 2;
+            let numValue = Math.pow(1 / Math.pow(KMeans.dist(example, centroids[i]), 2), 1 / (Utilities.KMEANS_B - 1));
+            let denValue = 0;
+            for (let r = 0; r < centroids.length; r++) {
+                denValue += Math.pow(1 / Math.pow(KMeans.dist(example, centroids[r]), 2), 1 / (Utilities.KMEANS_B - 1));
+            }
+            maxDegree = Math.max(maxDegree, numValue / denValue);
+            data.push([centroids[i], dist, numValue / denValue]);
+            if (dist < minDist) {
+                minDist = dist;
+                sol = i;
+            }
+        }
+        const classSol = sol === 0 ? "Iris-setosa" : "Iris-versicolor";
+        data.push(maxDegree);
+
+        console.log(example);
+        console.log(sol);
+        console.log(minDist);
+        console.log(classSol);
+        console.log(dat);
+
+        // view.drawInfo(example, sol, minDist, classSol, data);
+        return classSol;
+    }
 }
