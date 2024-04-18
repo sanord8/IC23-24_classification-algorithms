@@ -5,4 +5,8 @@ export default class Utilities {
 
     static KMEANS_EPS = Math.pow(1, -2);
     static KMEANS_B = 2;
+
+    static LLOYD_EPS = Math.pow(10, -6);
+    static LLOYD_GAMMA = 1;
+    static LLOYD_KMAX = 1000;
 }

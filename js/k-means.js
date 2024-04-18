@@ -1,7 +1,7 @@
 "use strict";
 
 import Utilities from "./utils.js";
-import dataSets from "../docs/data.js";
+import dataSets from "./data.js";
 
 export default class KMeans {
     static dist(x, v) {
