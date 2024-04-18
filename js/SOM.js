@@ -3,9 +3,7 @@
 /**
  * Self-Organizing Map (SOM) class.
  */
-class SOM {
-
-    
+export default class SOM {
    /**
      * @param {number} inputSize - The number of features in each data point.
      * @param {number} mapSize - The size of the SOM grid.

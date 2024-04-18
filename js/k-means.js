@@ -68,7 +68,7 @@ export default class KMeans {
                 numIter++;
             }
         }
-        return [newCenters, numIter];
+        return { centroids: newCenters, iter: numIter };
     }
 
     static classify(centroids, example) {
@@ -93,13 +93,6 @@ export default class KMeans {
         const classSol = sol === 0 ? "Iris-setosa" : "Iris-versicolor";
         data.push(maxDegree);
 
-        console.log(example);
-        console.log(sol);
-        console.log(minDist);
-        console.log(classSol);
-        console.log(dat);
-
-        // view.drawInfo(example, sol, minDist, classSol, data);
         return classSol;
     }
 }

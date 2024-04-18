@@ -106,4 +106,8 @@ export default class data {
         [5.1, 2.5, 3.0, 1.1, "Iris-versicolor"],
         [5.7, 2.8, 4.1, 1.3, "Iris-versicolor"]
     ];
+
+    static test1 = [5.1, 3.5, 1.4, 0.2, "Iris-setosa"];
+    static test2 = [6.9, 3.1, 4.9, 1.5, "Iris-versicolor"];
+    static test3 = [5.0, 3.4, 1.5, 0.2, "Iris-setosa"];
 }
