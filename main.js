@@ -222,4 +222,8 @@ async function runSOM() {
     som.train(dataSets.versicolor.concat(dataSets.setosa));
     
     const t1 = som.predict(dataSets.test1.slice(0, -1));
+    const t2 = som.predict(dataSets.test2.slice(0, -1));
+    const t3 = som.predict(dataSets.test3.slice(0, -1));
+
+    createTestSolutionsTable("somTests", t1, t2, t3);
 }
