@@ -31,6 +31,21 @@ Se ha implementado un código de colores para diferenciar las diferentes cajas y
 ### main.js
 Este archivo contiene la lógica principal de la página. Incluye funciones para inicializar la cuadrícula, manejar clics en las celdas e iniciar la búsqueda.
 
+### js/bayes.js
+Este archivo contiene la implementación del algoritmo de clasificación de Bayes. Incluye funciones para calcular la media y la matriz de covarianza, así como para clasificar los datos.
+
+### js/data.js
+Este archivo se encarga de manejar los datos utilizados en el proyecto. Incluye funciones para cargar los datos de los archivos de texto proporcionados y para dividir los datos en conjuntos de entrenamiento y prueba.
+
+### js/k-means.js
+Este archivo contiene la implementación del algoritmo de clasificación K-Means. Incluye funciones para inicializar los centroides, asignar puntos de datos al centroide más cercano y actualizar los centroides en función de los puntos de datos asignados.
+
+### js/lloyd.js
+Este archivo contiene la implementación del algoritmo de Lloyd para la clasificación de datos. Incluye funciones para inicializar los centroides, asignar puntos de datos al centroide más cercano y actualizar los centroides en función de los puntos de datos asignados.
+
+### js/utils.js
+Este archivo contiene funciones de utilidad utilizadas en todo el proyecto. Incluye funciones para calcular la distancia euclidiana entre dos puntos, para generar números aleatorios dentro de un rango especificado y para copiar arrays de manera profunda.
+
 ### js/SOM.js
 Este archivo contiene la implementación del algoritmo de Mapas Autoorganizados (SOM). Incluye una función para inicializar los pesos del mapa. Esta implementación no está completa, pero se puede utilizar como base para futuras mejoras.
 
